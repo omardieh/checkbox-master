@@ -5,16 +5,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("root")
   );
   checkButton.addEventListener("click", () => {
-    useChromeQuery({ func: toggleCheckboxes, args: [true] }, () =>
-      updateCount(updateCountText)
+    useChromeQuery({ func: toggleCheckboxes, args: [true] });
+    useChromeQuery({ func: countCheckboxes }, (result) =>
+      updateCountText(result[0].result)
     );
   });
   uncheckButton.addEventListener("click", () => {
-    useChromeQuery({ func: toggleCheckboxes }, () =>
-      updateCount(updateCountText)
+    useChromeQuery({ func: toggleCheckboxes });
+    useChromeQuery({ func: countCheckboxes }, (result) =>
+      updateCountText(result[0].result)
     );
   });
-  updateCount(updateCountText);
+  useChromeQuery({ func: countCheckboxes }, (result) =>
+    updateCountText(result[0].result)
+  );
 });
 
 function useChromeQuery(action, callback) {
@@ -49,6 +53,7 @@ function toggleCheckboxes(check) {
     });
     return documents;
   }
+
   function handleCheck(doc, check) {
     doc.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       if (check) {
@@ -64,37 +69,28 @@ function toggleCheckboxes(check) {
   }
 }
 
-function updateCount(updateCountText) {
-  useChromeQuery({ func: countCheckboxes }, (results) => {
-    updateCountText(
-      results.reduce((sum, result) => sum + (result.result || 0), 0)
-    );
-  });
-
-  function countCheckboxes() {
-    let count = 0;
-    const documents = getAllDocs(document);
-    documents.forEach((doc) => (count += handleCount(doc)));
-    function getAllDocs(doc) {
-      const documents = [doc];
-      const iframes = doc.querySelectorAll("iframe");
-      iframes.forEach((iframe) => {
-        const iframeDoc =
-          iframe.contentDocument || iframe.contentWindow.document;
-        if (iframeDoc) {
-          documents.push(iframeDoc);
-          const nestedDocs = getAllDocs(iframeDoc);
-          if (!nestedDocs.length) return documents;
-          nestedDocs.forEach((nestedDoc) => documents.push(nestedDoc));
-        }
-      });
-      return documents;
-    }
-    function handleCount(doc) {
-      return Array.from(doc.querySelectorAll('input[type="checkbox"]')).filter(
-        (checkbox) => checkbox.checked
-      ).length;
-    }
-    return count;
+function countCheckboxes() {
+  let count = 0;
+  const documents = getAllDocs(document);
+  documents.forEach((doc) => (count += handleCount(doc)));
+  function getAllDocs(doc) {
+    const documents = [doc];
+    const iframes = doc.querySelectorAll("iframe");
+    iframes.forEach((iframe) => {
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      if (iframeDoc) {
+        documents.push(iframeDoc);
+        const nestedDocs = getAllDocs(iframeDoc);
+        if (!nestedDocs.length) return documents;
+        nestedDocs.forEach((nestedDoc) => documents.push(nestedDoc));
+      }
+    });
+    return documents;
   }
+  function handleCount(doc) {
+    return Array.from(doc.querySelectorAll('input[type="checkbox"]')).filter(
+      (checkbox) => checkbox.checked
+    ).length;
+  }
+  return count;
 }

@@ -11,6 +11,7 @@ export default class OptionsScreen {
     });
     this.counter = this.createElement({
       type: "span",
+      className: "counter",
       textContent: "Selected 0",
     });
     this.updateCountText = this.updateCountText.bind(this);
