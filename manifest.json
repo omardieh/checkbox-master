@@ -2,19 +2,26 @@
   "manifest_version": 3,
   "name": "Checkbox Master",
   "version": "1.0",
-  "description": "Checkbox Master is a Google Chrome extension designed to streamline checkbox management on web pages. With this extension, users can quickly and efficiently select multiple checkboxes with a single click, saving time and effort when dealing with tasks such as selecting multiple items on a list or completing multiple checkboxes on a form.",
+  "description": "Checkbox Master is a handy Chrome extension designed to simplify checkbox management across web pages. With Checkbox Master, you can effortlessly toggle checkboxes to either check or uncheck them, saving you time and effort when dealing with multiple checkboxes.",
   "permissions": ["tabs", "scripting", "activeTab"],
   "host_permissions": ["<all_urls>"],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "scripts/background.js"
   },
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "16": "icon.png",
-      "48": "icon.png",
-      "128": "icon.png"
+      "16": "assets/icon.png",
+      "48": "assets/icon.png",
+      "128": "assets/icon.png"
     }
   },
-  "icons": { "16": "icon.png", "48": "icon.png", "128": "icon.png" }
+  "icons": {
+    "16": "assets/icon.png",
+    "48": "assets/icon.png",
+    "128": "assets/icon.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
 }
