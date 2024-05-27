@@ -5,20 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("root")
   );
   checkButton.addEventListener("click", () => {
-    useChromeQuery({ func: toggleCheckboxes, args: [true] });
-    useChromeQuery({ func: countCheckboxes }, (result) =>
-      updateCountText(result[0].result)
-    );
+    useChromeQuery({ func: toggleCheckboxes, args: [true] }, () => {
+      useChromeQuery({ func: countCheckboxes }, updateCount);
+    });
   });
+
   uncheckButton.addEventListener("click", () => {
-    useChromeQuery({ func: toggleCheckboxes });
-    useChromeQuery({ func: countCheckboxes }, (result) =>
-      updateCountText(result[0].result)
-    );
+    useChromeQuery({ func: toggleCheckboxes, args: [false] }, () => {
+      useChromeQuery({ func: countCheckboxes }, updateCount);
+    });
   });
-  useChromeQuery({ func: countCheckboxes }, (result) =>
-    updateCountText(result[0].result)
-  );
+
+  useChromeQuery({ func: countCheckboxes }, updateCount);
+
+  function updateCount(result) {
+    updateCountText(result[0].result);
+  }
 });
 
 function useChromeQuery(action, callback) {
