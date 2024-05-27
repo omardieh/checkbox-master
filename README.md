@@ -1,21 +1,31 @@
 # Checkbox Master
 
-Tick All Checkboxes is a Google Chrome extension designed to streamline checkbox management on web pages. With this extension, users can quickly and efficiently select multiple checkboxes with a single click, saving time and effort when dealing with tasks such as selecting multiple items on a list or completing multiple checkboxes on a form.
+Checkbox Master is a Google Chrome extension designed to simplify checkbox management on web pages. With this extension, you can easily check or uncheck all checkboxes on a page and get a real-time count of selected checkboxes. This tool is especially useful for tasks involving multiple checkboxes, such as filling out forms or managing lists.
+
+## Features
+
+- **Check All / Uncheck All Buttons**: Quickly toggle all checkboxes on the page.
+- **Real-Time Count Updates**: See the number of selected checkboxes in real time.
+- **Easy-to-Use Interface**: Simple and intuitive design.
+- **Supports Iframe HTML**: Works with iframes embedded within the page.
 
 ## Installation
 
-To install the Tick All Checkboxes extension:
+To install the Checkbox Master extension:
 
-1. Download the extension files (clone this repository, or download this zip file and extract)
+1. Clone this repository or [download the zip file](#).
 2. Open Google Chrome Browser.
-3. Navigate to `chrome://extensions/` in the URL.
+3. Navigate to `chrome://extensions/` in the URL bar.
 4. Enable "Developer mode" in the top right corner.
 5. Click on "Load unpacked" and select the folder containing the extension files.
 
 ## How to Use
 
-Once the extension is installed:
+1. Open a web page with checkboxes you want to manage.
+2. Click on the Checkbox Master button in the extension popup.
+3. Use the "Check All" button to select all checkboxes, or the "Uncheck All" button to deselect them.
+4. The counter will update in real-time to show the number of selected checkboxes.
 
-1. Open a web page with checkboxes you want to tick.
-2. Click on the Tick All Boxes button in the extension popup.
-3. All checkboxes on the page will be selected.
+## Contribution
+
+Contributions are welcome! Please open an issue or submit a pull request with any changes or improvements.
